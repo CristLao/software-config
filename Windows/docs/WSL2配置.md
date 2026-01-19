@@ -246,12 +246,11 @@ explorer.exe .
 
 # 配置国内源
 cat > /etc/pacman.d/mirrorlist << 'EOF'
-# 中国镜像源
-Server = https://mirrors.cloud.tencent.com/archlinux/\$repo/os/\$arch
-Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch
-Server = https://mirrors.aliyun.com/archlinux/\$repo/os/\$arch
-Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
-Server = https://mirrors.hit.edu.cn/archlinux/\$repo/os/\$arch
+# archlinuxcn 源 - 国内社区维护的常用软件包
+[archlinuxcn]
+Server = https://mirrors.cloud.tencent.com/archlinuxcn/$arch
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+Server = https://mirrors.aliyun.com/archlinuxcn/$arch
 EOF
 
 进入下一级pacman.d目录,编辑mirrolist文件,把China的部分的注释去掉
