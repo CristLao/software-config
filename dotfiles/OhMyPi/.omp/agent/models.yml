@@ -1,0 +1,59 @@
+providers:
+  newapi:
+    baseUrl: http://127.0.0.1:3000/v1
+    apiKey: NEWAPI_KEY
+    authHeader: true
+    disableStrictTools: true
+    discovery:
+      type: proxy
+    models:
+      - id: k3
+        name: k3
+        api: openai-completions
+        contextWindow: 1048576
+        maxTokens: 131072
+    # Loopback baseUrl auto-enables several local-provider compat hints:
+    #   - qwenPreserveThinking for Qwen/GLM reasoning history
+    #   - replayReasoningContent so prior-turn 恬ink blocks stay byte-stable
+    #     across turns (helps KV cache reuse for local Qwen/DeepSeek/GLM)
+    #   - appendOnlyContext: auto (KV-cache-friendly context framing)
+    # See packages/catalog/CHANGELOG.md:915 and 158-159 for the autopaths.
+
+  moark:
+    baseUrl: https://moark.com/v1
+    apiKey: MOARK_KEY
+    authHeader: true
+    disableStrictTools: true
+    discovery:
+      type: proxy
+    models:
+      - id: kimi-k3
+        name: kimi-k3
+        api: openai-completions
+        contextWindow: 1048576
+        maxTokens: 131072
+      - id: deepseek-v4-flash-0731
+        name: deepseek-v4-flash-0731
+        api: openai-completions
+        contextWindow: 1048576
+        maxTokens: 61072
+      - id: qwen3.8-flash
+        name: qwen3.8-flash
+        api: openai-completions
+        contextWindow: 1048576
+        maxTokens: 61072
+      - id: GLM-5.3-Flash
+        name: GLM-5.3-Flash
+        api: openai-completions
+        contextWindow: 1048576
+        maxTokens: 61072
+      - id: gpt-5.6-sol-pool
+        name: gpt-5.6-sol
+        api: openai-completions
+        contextWindow: 1048576
+        maxTokens: 61072
+      - id: gpt-5.6-luna-pool
+        name: gpt-5.6-luna
+        api: openai-completions
+        contextWindow: 1048576
+        maxTokens: 61072

@@ -1,0 +1,7 @@
+{
+  "lastChangelogVersion": "0.84.4",
+  "theme": "dark",
+  "defaultProvider": "moark",
+  "defaultModel": "deepseek-v4-flash-0731",
+  "defaultThinkingLevel": "max"
+}
