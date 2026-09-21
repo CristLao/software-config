@@ -15,3 +15,5 @@ cached_layouts
 
 # Mise local secrets (machine-local, never committed)
 **/.config/mise/*.local.toml
+
+**/skills/devops-toolkit

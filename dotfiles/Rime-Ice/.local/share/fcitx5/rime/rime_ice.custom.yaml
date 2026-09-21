@@ -1,7 +1,7 @@
 patch:
   translator/dictionary: private_dict # 自定义词典
   switches/@0/reset: 1 # 默认用英文
-  switches/@1/reset: 1 # 默认用英文标点
+  switches/@1/reset: 0 # 默认用中文(全角)标点
   # 万象
   grammar:
     language: wanxiang-lts-zh-hans
