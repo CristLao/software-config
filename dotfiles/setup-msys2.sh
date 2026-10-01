@@ -245,6 +245,11 @@ safe_ln "$BASE_DIR/LazyVim/.config/nvim" "$LOCALAPPDATA/nvim"
 safe_ln "$BASE_DIR/Jetbrains/.ideavimrc" "$HOME/.ideavimrc"
 # Ruff
 safe_ln "$BASE_DIR/Ruff/.config/ruff" "$APPDATA/ruff"
+# Pi Agent
+safe_ln "$BASE_DIR/Pi/.pi/agent/models.json" "$HOME/.pi/agent/models.json"
+# Oh-My-Pi Agent
+safe_ln "$BASE_DIR/OhMyPi/.omp/agent/config.yml" "$HOME/.omp/agent/config.yml"
+safe_ln "$BASE_DIR/OhMyPi/.omp/agent/models.yml" "$HOME/.omp/agent/models.yml"
 
 # --- cp 配置(适用于需要额外修改或不常改动的配置文件) ---
 

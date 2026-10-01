@@ -1,0 +1,23 @@
+setupVersion: 2
+modelRoles:
+  plan: moark/glm-5.3:max
+  tiny: moark/qwen3.8-flash:max
+  advisor: newapi/glm-5.3:max
+  task: moark/deepseek-v4-flash-0731:max
+  smol: moark/qwen3.8-flash:max
+  vision: moark/qwen3.8-flash:max
+  commit: moark/deepseek-v4-flash-0731:max
+  slow: moark/glm-5.3:max
+  designer: moark/kimi-k3:max
+  default: moark/GLM-5.3-Flash:max
+compaction:
+  idleThresholdTokens: 900000
+  idleEnabled: false
+  thresholdPercent: 90
+task:
+  eager: preferred
+memory:
+  backend: local
+composer:
+  shape: band
+defaultThinkingLevel: auto

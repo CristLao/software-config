@@ -2,7 +2,7 @@
 Type=Application
 Name=系统快照
 Comment=快速创建系统快照
-Exec=bash -c "~/.local/bin/quicksnap"
+Exec=bash -c '~/.local/bin/quicksnap --keep'
 Icon=yast-snapper
 Terminal=false
 StartupNotify=false

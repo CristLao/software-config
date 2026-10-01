@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+# 按 archupdate 的流程更新系统, 但保持当前 NVIDIA 驱动版本不变.
+
+set -Eeuo pipefail
+
+SKIP_PREPARE=false
+
+usage() {
+    cat <<'EOF'
+Usage: archupdate-no-nvidia [--resume]
+
+Options:
+  --resume  Skip Snapper snapshots and keyring synchronization.
+  -h, --help
+            Show this help message.
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --resume)
+            SKIP_PREPARE=true
+            shift
+            ;;
+        -h | --help)
+            usage
+            exit 0
+            ;;
+        *)
+            printf '未知参数: %s\n' "$1" >&2
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+
+command -v paru >/dev/null 2>&1 || {
+    printf '错误: 未找到 paru.\n' >&2
+    exit 1
+}
+
+printf '[1/5] 请求管理员权限...\n'
+sudo -v
+
+# 更新时保持 sudo 时效, 退出脚本时自动结束.
+(while true; do
+    sudo -n true 2>/dev/null || exit
+    sleep 60 || exit
+done) &
+SUDO_KEEPALIVE_PID=$!
+trap 'kill "$SUDO_KEEPALIVE_PID" 2>/dev/null || true' EXIT
+
+if [[ $SKIP_PREPARE == false ]]; then
+    printf '[2/5] 创建更新前快照...\n'
+    if command -v snapper >/dev/null 2>&1; then
+        mapfile -t SNAPPER_CONFIGS < <(sudo snapper list-configs | awk 'NR>2 {print $1}')
+        for config in "${SNAPPER_CONFIGS[@]}"; do
+            sudo snapper -c "$config" cleanup number
+            sudo snapper -c "$config" create \
+                --description "pre-archupdate-${config}" \
+                --cleanup-algorithm number
+            printf '  已创建: pre-archupdate-%s\n' "$config"
+        done
+    else
+        printf '  未安装 snapper, 跳过.\n'
+    fi
+
+    printf '[3/5] 同步数据库与 keyring...\n'
+    KEYRING_TARGETS=(archlinux-keyring)
+    if grep -q '^\[archlinuxcn\]' /etc/pacman.conf; then
+        KEYRING_TARGETS+=(archlinuxcn-keyring)
+    fi
+    sudo pacman -Sy --needed --noconfirm "${KEYRING_TARGETS[@]}"
+else
+    printf '[2/5] 已跳过快照和 keyring 步骤 (--resume).\n'
+fi
+
+printf '[4/5] 更新系统与 AUR, 忽略 NVIDIA 驱动...\n'
+# NVIDIA 驱动拆分包一次性同步升级命令:
+# paru -S --batchinstall \
+#   nvidia-580xx-utils \
+#   nvidia-580xx-dkms \
+#   opencl-nvidia-580xx \
+#   libxnvctrl-580xx \
+#   nvidia-580xx-settings
+NVIDIA_IGNORE=(
+    libxnvctrl-580xx
+    nvidia-580xx-dkms
+    nvidia-580xx-settings
+    nvidia-580xx-utils
+    opencl-nvidia-580xx
+    lib32-nvidia-580xx-utils
+    lib32-opencl-nvidia-580xx
+    libva-nvidia-driver
+    nvidia-prime
+)
+
+PARU_OPTIONS=(--skipreview)
+for package in "${NVIDIA_IGNORE[@]}"; do
+    PARU_OPTIONS+=(--ignore "$package")
+done
+
+paru -Syu "${PARU_OPTIONS[@]}"
+
+printf '[5/5] 更新 Flatpak, GRUB 和 Mise...\n'
+if command -v flatpak >/dev/null 2>&1; then
+    flatpak update -y
+fi
+
+if command -v grub-mkconfig >/dev/null 2>&1; then
+    sudo env LANG=en_US.UTF-8 grub-mkconfig -o /boot/grub/grub.cfg
+fi
+
+if command -v mise >/dev/null 2>&1; then
+    mise self-update
+    mise upgrade
+fi
+
+printf '\n更新完成. NVIDIA 驱动保持原版本.\n'

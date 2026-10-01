@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# 将向日葵回退到已验证可用的 16.5.0.30560-10.
+set -Eeuo pipefail
+
+readonly TARGET_VERSION="16.5.0.30560-10"
+readonly AUR_REPO="https://aur.archlinux.org/sunloginclient.git"
+readonly AUR_COMMIT="b3a382402fdd1d36986a7055bb9a04d4d24f24bb"
+
+for command_name in git makepkg pacman sudo systemctl; do
+  command -v "$command_name" >/dev/null || {
+    echo "缺少命令: $command_name" >&2
+    exit 1
+  }
+done
+
+if [[ "$(pacman -Q sunloginclient 2>/dev/null || true)" == "sunloginclient $TARGET_VERSION" ]]; then
+  echo "向日葵已经是目标版本: $TARGET_VERSION"
+  exit 0
+fi
+
+work_dir="$(mktemp -d -p /tmp sunlogin-rollback.XXXXXX)"
+gui_was_active=0
+
+cleanup() {
+  local exit_code=$?
+  trap - EXIT
+
+  if ((gui_was_active)); then
+    systemctl --user start app-awesun@autostart.service >/dev/null 2>&1 || true
+  fi
+
+  case "$work_dir" in
+    /tmp/sunlogin-rollback.*) rm -rf -- "$work_dir" ;;
+  esac
+
+  exit "$exit_code"
+}
+trap cleanup EXIT
+
+echo "获取向日葵 $TARGET_VERSION 的构建文件..."
+git clone --quiet "$AUR_REPO" "$work_dir/source"
+git -C "$work_dir/source" checkout --quiet --detach "$AUR_COMMIT"
+
+echo "构建并校验安装包..."
+(
+  cd "$work_dir/source"
+  makepkg --noconfirm
+)
+
+package_file="$work_dir/source/sunloginclient-$TARGET_VERSION-x86_64.pkg.tar.zst"
+[[ -f "$package_file" ]] || {
+  echo "未找到构建完成的安装包: $package_file" >&2
+  exit 1
+}
+
+[[ "$(pacman -Qp "$package_file")" == "sunloginclient $TARGET_VERSION" ]] || {
+  echo "安装包版本校验失败." >&2
+  exit 1
+}
+
+sudo -v
+
+if systemctl --user is-active --quiet app-awesun@autostart.service; then
+  gui_was_active=1
+  systemctl --user stop app-awesun@autostart.service
+fi
+
+echo "安装向日葵 $TARGET_VERSION..."
+sudo pacman -U --noconfirm "$package_file"
+
+if ((gui_was_active)); then
+  systemctl --user daemon-reload
+  systemctl --user start app-awesun@autostart.service
+  gui_was_active=0
+fi
+
+echo "回退完成: $(pacman -Q sunloginclient)"
