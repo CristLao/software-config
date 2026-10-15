@@ -1,0 +1,4 @@
+interface:
+  display_name: "去 AI 味写作"
+  short_description: "撰写和润色自然具体的中文, 去除模板腔, 保留原意并核对文档可执行性"
+  default_prompt: "请使用 $plain-writing 润色这段文字, 保留原意与事实, 删除空话和模板化表达."
