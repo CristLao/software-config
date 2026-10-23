@@ -38,7 +38,7 @@ docker compose logs -f redis-new-api
 | data/logs 挂载 | `./data` 和 `./logs` 改到 `~/data-container/docker/new-api` 目录下                        |
 | postgres 挂载  | 取消 named volume `pg_data`, 改用 bind mount 到 `~/data-container/docker/new-api/pg_data` |
 | 容器名         | 添加 `-new-api` 后缀, 防止冲突                                                            |
-| 网络           | 添加 ipam 子网 `172.20.0.0/16`, 防止和代理软件冲突                                        |
+| 网络           | 添加 ipam 子网, 固定 `172.28.0.0/24`, 避开公司 VPN 推送网段(如 `172.20.0.0/16`)           |
 
 # 数据备份
 

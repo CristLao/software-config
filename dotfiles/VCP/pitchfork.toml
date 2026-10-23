@@ -1,0 +1,23 @@
+# VCP 守护进程配置 (pitchfork)
+# 替代 pm2 ecosystem.config.js: vcp-main = server.js, vcp-admin = adminServer.js
+# 文档参考: https://pitchfork.jdx.dev/reference/configuration
+
+[daemons.vcp-main]
+run = "exec node server.js"
+dir = "VCPToolBox"
+mise = true                                       # 经 mise x 解析项目工具链 (node 22.23.2), 避免全局 node ABI 不匹配
+# UV_THREADPOOL_SIZE=64: 新版 libuv 原生异步任务需要 (须在 node 启动前设置)
+env = { NODE_ENV = "production", UV_THREADPOOL_SIZE = "64" }
+retry = true                                       # 崩溃自动重启 (同 pm2 autorestart 默认行为)
+ready_port = 6005                                  # PORT (config.env), TCP 可连接即就绪
+stop_signal = { signal = "SIGTERM", timeout = "15s" } # 同 pm2 kill_timeout: 15000
+
+[daemons.vcp-admin]
+run = "exec node adminServer.js"
+dir = "VCPToolBox"
+mise = true
+env = { NODE_ENV = "production", UV_THREADPOOL_SIZE = "64" }
+retry = true
+depends = ["vcp-main"]     # 主服务就绪后再启动 (替代 pm2 restart_delay: 5000)
+ready_port = 6006          # PORT+1, 管理面板端口
+stop_signal = { signal = "SIGTERM", timeout = "5s" }

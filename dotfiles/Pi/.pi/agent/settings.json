@@ -3,7 +3,7 @@
   "theme": "dark",
   "fullscreenScrollbar": "always",
   "fullscreenCopyOnSelect": false,
-  "defaultProvider": "deepseek",
-  "defaultModel": "deepseek-flash",
-  "defaultThinkingLevel": "high"
+  "defaultProvider": "moark",
+  "defaultModel": "DeepSeek-V4.1-Flash-1017",
+  "defaultThinkingLevel": "max"
 }

@@ -1,0 +1,36 @@
+﻿name,category,action,url,file_name,sha256,homepage,notes
+VC++ Redistributable (x64),apps,download,https://aka.ms/vc_redist.x64.exe,vc_redist.x64.exe,,https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist,Microsoft aka.ms permanent redirect to latest signed build
+7Zip,apps,open-edge,https://sparanoid.com/lab/7z/,,,https://sparanoid.com/lab/7z/,解压缩软件
+Everything,apps,open-edge,https://www.voidtools.com/downloads/,,,https://www.voidtools.com/,everything全局搜索
+百度网盘,apps,open-edge,https://pan.baidu.com/,,,https://pan.baidu.com/,网盘
+网易云音乐,apps,open-edge,https://music.163.com/download,,,https://music.163.com/,音乐
+PotPlayer,apps,open-edge,https://potplayer.daum.net/,,,https://potplayer.daum.net/,视频
+微信,apps,open-edge,https://pc.weixin.qq.com/,,,https://pc.weixin.qq.com/,聊天工具
+QQ,apps,open-edge,https://im.qq.com/pcqq/,,,https://im.qq.com/,聊天工具
+WPS Office,apps,open-edge,https://www.wps.cn/,,,https://www.wps.cn/,办公软件
+向日葵,apps,open-edge,https://sunlogin.oray.com/download,,,https://sunlogin.oray.com,贝锐向日葵
+FlClash,apps,open-edge,https://github.com/chen08209/FlClash/releases,,,https://github.com/chen08209/FlClash/releases,vpn
+v2rayN,apps,download,https://github.com/2dust/v2rayN/releases/latest/download/v2rayN-windows-64.zip,v2rayN-windows-64.zip,,https://github.com/2dust/v2rayN/releases,vpn
+OpenVPN Connect,apps,download,https://openvpn.net/downloads/openvpn-connect-v3-windows.msi,openvpn-connect-v3-windows.msi,,https://openvpn.net/connect/,vpn
+IosevkaTerm,fonts,open-edge,https://github.com/be5invis/Iosevka/releases,,,https://github.com/be5invis/Iosevka/releases,字体
+MiSans,fonts,open-edge,https://hyperos.mi.com/font/zh/download/,,,https://hyperos.mi.com/font/zh/download/,字体
+LxgwNeoXiZhi-Screen,fonts,download,https://github.com/lxgw/LxgwNeoXiZhi-Screen/releases/latest/download/LXGWNeoZhiSongScreenFull.ttf,LXGWNeoZhiSongScreenFull.ttf,,https://github.com/lxgw/LxgwNeoXiZhi-Screen/releases,字体
+SarasaTermSC,fonts,open-edge,https://github.com/be5invis/Sarasa-Gothic/releases,,,https://github.com/be5invis/Sarasa-Gothic/releases,字体
+NerdFontsSymbolsOnly,fonts,download,https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip,NerdFontsSymbolsOnly.zip,,https://github.com/ryanoasis/nerd-fonts/releases,字体
+JetBrainsMono Nerd Font,fonts,download,https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip,JetBrainsMono.zip,,https://github.com/ryanoasis/nerd-fonts/releases,字体
+Noto Color Emoji,fonts,open-edge,https://fonts.google.com/noto/specimen/Noto+Color+Emoji,,,https://fonts.google.com/noto/specimen/Noto+Color+Emoji,字体
+RIME Weasel (小狼毫),apps,open-edge,https://github.com/rime/weasel/releases,,,https://github.com/rime/weasel/releases,Versioned filename with .0 build suffix; no versionless asset
+WezTerm,apps,open-edge,https://github.com/wez/wezterm/releases,,,https://github.com/wez/wezterm/releases,terminal
+Orca,apps,open-edge,https://github.com/stablyai/orca/releases,,,https://github.com/stablyai/orca,terminal
+tabby,apps,open-edge,https://github.com/Eugeny/tabby/releases,,,https://tabby.sh/,terminal
+VSCode,apps,download,https://update.code.visualstudio.com/latest/win32-x64/stable,VSCodeSetup-x64-stable.exe,,https://code.visualstudio.com/,编辑器
+JetBrains Toolbox,apps,open-edge,https://www.jetbrains.com/toolbox-app/,,,https://www.jetbrains.com/toolbox-app/,编辑器
+DBX,apps,open-edge,https://github.com/t8y2/dbx/releases,,,https://github.com/t8y2/dbx/releases,数据库管理
+ApiFox,apps,open-edge,https://www.apifox.com/,,,https://www.apifox.com/,api调用工具
+Google Chrome,apps,open-edge,https://www.google.com/intl/zh-CN/chrome/,,,https://www.google.com/intl/zh-CN/chrome/,Chrome浏览器
+KeePass,apps,open-edge,https://keepass.info/,,,https://keepass.info/,密码加密工具
+Steam,apps,open-edge,https://store.steampowered.com/,,,https://store.steampowered.com/,Steam平台
+Pwsh,apps,open-edge,https://github.com/PowerShell/PowerShell/releases,,,https://github.com/PowerShell/PowerShell/releases,pwsh7
+MSYS2,apps,open-edge,https://github.com/msys2/msys2-installer/releases,,,https://github.com/msys2/msys2-installer/releases,msys2
+reqable,apps,open-edge,https://reqable.com/zh-CN/download/,,,https://github.com/reqable/reqable-app,抓包工具
+cc-switch,apps,open-edge,https://github.com/farion1231/cc-switch/releases,,,https://github.com/farion1231/cc-switch/releases,ai模型相关工具
